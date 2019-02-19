@@ -111,6 +111,11 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<includes>
+								**/*IT
+							</includes>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
