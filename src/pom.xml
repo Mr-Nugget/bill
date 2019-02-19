@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- =============================================================== -->
-	<!-- Project informations  -->
+	<!-- Project informations -->
 	<!-- =============================================================== -->
 	<!-- ===== Maven ===== -->
 	<groupId>com.dummy.myerp</groupId>
