@@ -6,6 +6,6 @@ public class TestIntegrationIT {
 	
 	@Test
 	public void test1() {
-		System.out.println("\n\nTests d'intégration déclenchés !\n\n");
+		System.out.println("\n\nIT OK !\n\n");
 	}
 }
