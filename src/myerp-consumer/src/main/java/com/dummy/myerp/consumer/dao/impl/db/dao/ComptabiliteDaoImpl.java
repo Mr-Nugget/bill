@@ -12,12 +12,14 @@ import com.dummy.myerp.consumer.dao.impl.db.rowmapper.comptabilite.CompteComptab
 import com.dummy.myerp.consumer.dao.impl.db.rowmapper.comptabilite.EcritureComptableRM;
 import com.dummy.myerp.consumer.dao.impl.db.rowmapper.comptabilite.JournalComptableRM;
 import com.dummy.myerp.consumer.dao.impl.db.rowmapper.comptabilite.LigneEcritureComptableRM;
+import com.dummy.myerp.consumer.dao.impl.db.rowmapper.comptabilite.SequenceEcritureComptableRM;
 import com.dummy.myerp.consumer.db.AbstractDbConsumer;
 import com.dummy.myerp.consumer.db.DataSourcesEnum;
 import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
+import com.dummy.myerp.model.bean.comptabilite.SequenceEcritureComptable;
 import com.dummy.myerp.technical.exception.NotFoundException;
 
 
@@ -29,8 +31,8 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
     // ==================== Constructeurs ====================
     /** Instance unique de la classe (design pattern Singleton) */
     private static final ComptabiliteDaoImpl INSTANCE = new ComptabiliteDaoImpl();
-
-    /**
+    
+   /**
      * Renvoie l'instance unique de la classe (design pattern Singleton).
      *
      * @return {@link ComptabiliteDaoImpl}
@@ -267,4 +269,69 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
         vSqlParams.addValue("ecriture_id", pEcritureId);
         vJdbcTemplate.update(SQLdeleteListLigneEcritureComptable, vSqlParams);
     }
+
+    
+    
+    //================ Sequence Ecriture Comptable GET ================
+    
+    private static String SQLgetSequenceEcritureComptable;
+    public void setSQLgetSequenceEcritureComptable(String sQLgetSequenceEcritureComptable) {
+		SQLgetSequenceEcritureComptable = sQLgetSequenceEcritureComptable;
+	}
+    
+	@Override
+	public SequenceEcritureComptable getSequenceEcritureComptable(String code, Integer year) {
+		
+		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
+		MapSqlParameterSource sqlParams = new MapSqlParameterSource();
+		sqlParams.addValue("journal_code", code, Types.VARCHAR);
+		sqlParams.addValue("annee", year, Types.INTEGER);
+		
+		SequenceEcritureComptable sequenceReturn = null;
+		SequenceEcritureComptableRM sRM = new SequenceEcritureComptableRM();
+		try {
+			sequenceReturn = jdbcTemplate.queryForObject(SQLgetSequenceEcritureComptable, sqlParams, sRM);
+		}catch(EmptyResultDataAccessException e) {
+			
+		}
+		
+		return sequenceReturn;
+	}
+	//================ Sequence Ecriture Comptable UPDATE ================
+	
+	private static String SQLupdateSequenceEcritureComptable;
+	public void setSQLupdateSequenceEcritureComptable(String sQLupdateSequenceEcritureComptable) {
+		SQLupdateSequenceEcritureComptable = sQLupdateSequenceEcritureComptable;
+	}
+	
+	@Override
+	public void updateSequenceEcritureComptable(String code, Integer year, Integer newValue) {
+		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
+		MapSqlParameterSource sqlParams = new MapSqlParameterSource();
+		sqlParams.addValue("journal_code", code, Types.VARCHAR);
+		sqlParams.addValue("annee", year, Types.INTEGER);
+		sqlParams.addValue("new_value", newValue, Types.INTEGER);
+		
+		jdbcTemplate.update(SQLupdateSequenceEcritureComptable, sqlParams);
+	}
+
+	
+	//================ Sequence Ecriture Comptable INSERT ================
+	
+	private static String SQLinsertSequenceEcritureComptable;
+	public void setSQLinsertSequenceEcritureComptable(String sQLinsertSequenceEcritureComptable) {
+		SQLinsertSequenceEcritureComptable = sQLinsertSequenceEcritureComptable;
+	}
+	
+	@Override
+	public void insertSequenceEcritureComptable(String code, Integer year, Integer lastValue) {
+		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
+		MapSqlParameterSource sqlParams = new MapSqlParameterSource();
+		sqlParams.addValue("journal_code", code, Types.VARCHAR);
+		sqlParams.addValue("annee", year, Types.INTEGER);
+		sqlParams.addValue("derniere_valeur", lastValue, Types.INTEGER);
+		
+		jdbcTemplate.update(SQLinsertSequenceEcritureComptable, sqlParams);
+		
+	}
 }

@@ -113,7 +113,7 @@
 						</executions>
 						<configuration>
 							<includes>
-								**/*IT
+								**/*IT.java
 							</includes>
 						</configuration>
 					</plugin>
@@ -252,6 +252,12 @@
 				<artifactId>spring-jdbc</artifactId>
 				<version>${spring.version}</version>
 				<scope>compile</scope>
+			</dependency>
+			<!-- Injection -->
+			<dependency>
+				<groupId>javax.inject</groupId>
+				<artifactId>javax.inject</artifactId>
+				<version>1</version>
 			</dependency>
 
 			<!-- ===== Database ===== -->

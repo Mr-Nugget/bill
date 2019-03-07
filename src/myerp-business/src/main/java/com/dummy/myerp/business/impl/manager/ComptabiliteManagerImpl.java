@@ -1,7 +1,10 @@
 package com.dummy.myerp.business.impl.manager;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Set;
@@ -17,6 +20,7 @@ import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
+import com.dummy.myerp.model.bean.comptabilite.SequenceEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
 import com.dummy.myerp.technical.exception.NotFoundException;
 
@@ -63,7 +67,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	// TODO à tester
 	@Override
 	public synchronized void addReference(EcritureComptable pEcritureComptable) {
-		// TODO à implémenter
+		// TODO FAIT à implémenter
 		// Bien se réferer à la JavaDoc de cette méthode !
 		/* Le principe :
                 1.  Remonter depuis la persitance la dernière valeur de la séquence du journal pour l'année de l'écriture
@@ -75,7 +79,48 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
                 3.  Mettre à jour la référence de l'écriture avec la référence calculée (RG_Compta_5)
                 4.  Enregistrer (insert/update) la valeur de la séquence en persitance
                     (table sequence_ecriture_comptable)
-		 */    	    	
+		 */
+		String codeJournal = pEcritureComptable.getJournal().getCode();
+		Date dateEcriture = pEcritureComptable.getDate();
+		
+		// Convert to localDate to get the year
+		LocalDate localDate = dateEcriture.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+		
+		// Get the sequence with the year and the journal code
+		SequenceEcritureComptable sequence = getDaoProxy().getComptabiliteDao().getSequenceEcritureComptable(codeJournal, localDate.getYear());
+		
+		String[] decomposeRef = pEcritureComptable.getReference().trim().split("/");
+		
+		Integer lastValue = Integer.parseInt(decomposeRef[1]);
+		
+		if(sequence == null) {
+			// Insert a new sequence
+			getDaoProxy().getComptabiliteDao().insertSequenceEcritureComptable(codeJournal, localDate.getYear(), 1);
+			
+			pEcritureComptable.setReference(decomposeRef[0]+"00001");
+			
+		}else {
+			// Update the sequence : derniere_valeur + 1
+			getDaoProxy().getComptabiliteDao().updateSequenceEcritureComptable(codeJournal, localDate.getYear(), sequence.getDerniereValeur()+1);
+			lastValue++;
+			
+			String newReference = "";
+			
+			if(lastValue < 10) {
+				newReference = "0000"+lastValue;
+			}else if(lastValue < 100) {
+				newReference = "000"+lastValue;
+			}else if(lastValue < 1000) {
+				newReference = "00"+lastValue;
+			}else if(lastValue < 10000) {
+				newReference = "0"+lastValue;
+			}else {
+				newReference ="" + lastValue;
+			}
+			
+			pEcritureComptable.setReference(newReference);
+			
+		}
 	}
 
 	/**

@@ -22,6 +22,9 @@ public class ComptabiliteManagerImplTestIT {
 
 	@Test
 	public void test1InsertEcritureComptable() throws FunctionalException {
+		
+		
+		
 		EcritureComptable ecritureTest = new EcritureComptable();
 		ecritureTest.setDate(new Date());
 		ecritureTest.setLibelle("Libelle Test");
