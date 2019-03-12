@@ -2,6 +2,10 @@ package com.dummy.myerp.consumer.dao.impl;
 
 import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
+import com.dummy.myerp.consumer.dao.contrat.ICompteComptableDao;
+import com.dummy.myerp.consumer.dao.contrat.IEcritureComptableDao;
+import com.dummy.myerp.consumer.dao.contrat.IJournalComptableDao;
+import com.dummy.myerp.consumer.dao.contrat.ISequenceEcritureComptableDao;
 
 
 /**
@@ -12,6 +16,13 @@ public final class DaoProxyImpl implements DaoProxy {
     // ==================== Attributs ====================
     /** {@link ComptabiliteDao} */
     private ComptabiliteDao comptabiliteDao;
+    
+    private IJournalComptableDao journalDao;
+    private ICompteComptableDao compteDao;
+    private IEcritureComptableDao ecritureDao;
+    private ISequenceEcritureComptableDao sequenceDao;
+    
+    
 
 
     // ==================== Constructeurs ====================
@@ -42,4 +53,37 @@ public final class DaoProxyImpl implements DaoProxy {
     public void setComptabiliteDao(ComptabiliteDao pComptabiliteDao) {
         this.comptabiliteDao = pComptabiliteDao;
     }
+
+	public IJournalComptableDao getJournalDao() {
+		return journalDao;
+	}
+
+	public void setJournalDao(IJournalComptableDao journalDao) {
+		this.journalDao = journalDao;
+	}
+
+	public ICompteComptableDao getCompteDao() {
+		return compteDao;
+	}
+
+	public void setCompteDao(ICompteComptableDao compteDao) {
+		this.compteDao = compteDao;
+	}
+
+	public IEcritureComptableDao getEcritureDao() {
+		return ecritureDao;
+	}
+
+	public void setEcritureDao(IEcritureComptableDao ecritureDao) {
+		this.ecritureDao = ecritureDao;
+	}
+
+	public ISequenceEcritureComptableDao getSequenceDao() {
+		return sequenceDao;
+	}
+
+	public void setSequenceDao(ISequenceEcritureComptableDao sequenceDao) {
+		this.sequenceDao = sequenceDao;
+	}
+    
 }
