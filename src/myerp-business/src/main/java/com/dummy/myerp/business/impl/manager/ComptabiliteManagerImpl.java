@@ -60,6 +60,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	public List<EcritureComptable> getListEcritureComptable() {
 		return getDaoProxy().getComptabiliteDao().getListEcritureComptable();
 	}
+	
+	@Override
+	public List<SequenceEcritureComptable> getListSequenceEcritureComptable() {
+		return getDaoProxy().getComptabiliteDao().getListSequenceEcritureComptable();
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -280,5 +285,10 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		} finally {
 			getTransactionManager().rollbackMyERP(vTS);
 		}
+	}
+	
+	@Override
+	public void deleteSequenceEcritureComptable(String code, Integer year) {
+		getDaoProxy().getComptabiliteDao().deleteSequenceEcritureComptable(code, year);
 	}
 }

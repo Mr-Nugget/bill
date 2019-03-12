@@ -360,7 +360,7 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 	}
 	
 	@Override
-	public void deletSequenceEcritureComptable(String code, Integer year) {
+	public void deleteSequenceEcritureComptable(String code, Integer year) {
 		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("annee", year);

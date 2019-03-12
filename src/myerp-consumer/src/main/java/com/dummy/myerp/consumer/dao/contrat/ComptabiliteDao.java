@@ -113,6 +113,6 @@ public interface ComptabiliteDao {
      * @param code
      * @param year
      */
-    void deletSequenceEcritureComptable(String code, Integer year);
+    void deleteSequenceEcritureComptable(String code, Integer year);
     
 }
