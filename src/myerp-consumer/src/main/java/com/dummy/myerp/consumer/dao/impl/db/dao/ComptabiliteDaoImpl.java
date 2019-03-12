@@ -292,11 +292,28 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		try {
 			sequenceReturn = jdbcTemplate.queryForObject(SQLgetSequenceEcritureComptable, sqlParams, sRM);
 		}catch(EmptyResultDataAccessException e) {
-			
+			// It's ok if there is nothing in the DB
 		}
 		
 		return sequenceReturn;
 	}
+	
+	
+	private static String SQLgetListSequenceEcritureComptable;
+	public void setSQLgetListSequenceEcritureComptable(String sQLgetListSequenceEcritureComptable) {
+		SQLgetListSequenceEcritureComptable = sQLgetListSequenceEcritureComptable;
+	}
+	
+	@Override
+	public List<SequenceEcritureComptable> getListSequenceEcritureComptable() {
+		JdbcTemplate template = new JdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
+		SequenceEcritureComptableRM rowMapper = new SequenceEcritureComptableRM();
+		List<SequenceEcritureComptable> listSEC = template.query(SQLgetListSequenceEcritureComptable, rowMapper);
+		
+		return listSEC;
+	}
+
+	
 	//================ Sequence Ecriture Comptable UPDATE ================
 	
 	private static String SQLupdateSequenceEcritureComptable;
@@ -332,6 +349,24 @@ public class ComptabiliteDaoImpl extends AbstractDbConsumer implements Comptabil
 		sqlParams.addValue("derniere_valeur", lastValue, Types.INTEGER);
 		
 		jdbcTemplate.update(SQLinsertSequenceEcritureComptable, sqlParams);
+		
+	}
+
+	//================ Sequence Ecriture Comptable DELETE ================
+	
+	private static String SQLdeleteSequenceEcritureComptable;
+	public void setSQLdeleteSequenceEcritureComptable(String sQLdeleteSequenceEcritureComptable) {
+		SQLdeleteSequenceEcritureComptable = sQLdeleteSequenceEcritureComptable;
+	}
+	
+	@Override
+	public void deletSequenceEcritureComptable(String code, Integer year) {
+		NamedParameterJdbcTemplate jdbcTemplate = new NamedParameterJdbcTemplate(getDataSource(DataSourcesEnum.MYERP));
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		params.addValue("annee", year);
+		params.addValue("journal_code", code);
+		
+		jdbcTemplate.update(SQLdeleteSequenceEcritureComptable, params);
 		
 	}
 }

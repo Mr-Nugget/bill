@@ -90,6 +90,12 @@ public interface ComptabiliteDao {
     SequenceEcritureComptable getSequenceEcritureComptable(String code, Integer year);
     
     /**
+     * Renvoie la liste de toutes les séquences
+     * @return liste sequenceEcritureComptable
+     */
+    List<SequenceEcritureComptable> getListSequenceEcritureComptable();
+    
+    /**
      * Met à jour la séquence associée au code journal et à l'année
      * @param code
      */
@@ -101,5 +107,12 @@ public interface ComptabiliteDao {
      * @param sequence
      */
     void insertSequenceEcritureComptable(String code, Integer year, Integer lastValue);
+    
+    /**
+     * Supprime une sequence par sa clef primaire (code journal et année)
+     * @param code
+     * @param year
+     */
+    void deletSequenceEcritureComptable(String code, Integer year);
     
 }

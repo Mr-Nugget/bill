@@ -98,6 +98,12 @@
 				AND annee = :annee
 			</value>
 		</property>
+		
+		<property name="SQLgetListSequenceEcritureComptable">
+			<value>
+				SELECT * FROM myerp.sequence_ecriture_comptable
+			</value>
+		</property>
 
 		<property name="SQLupdateSequenceEcritureComptable">
 			<value>
@@ -115,6 +121,15 @@
 				)VALUES(
 					:journal_code, :annee, :derniere_valeur
 				)
+				
+			</value>
+		</property>
+		
+		<property name="SQLdeleteSequenceEcritureComptable">
+			<value>
+				DELETE FROM MYERP.sequence_ecriture_comptable
+				WHERE annee = :annee
+				AND journal_code = :journal_code
 				
 			</value>
 		</property>
