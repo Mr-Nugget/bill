@@ -36,13 +36,15 @@
 		<property name="SQLgetEcritureComptableByRef">
 			<value>
 				SELECT * FROM myerp.ecriture_comptable
-				WHERE reference = :reference
+				WHERE reference =
+				:reference
 			</value>
 		</property>
 		<property name="SQLloadListLigneEcriture">
 			<value>
 				SELECT * FROM myerp.ligne_ecriture_comptable
-				WHERE ecriture_id = :ecriture_id
+				WHERE ecriture_id
+				= :ecriture_id
 				ORDER BY ligne_id
 			</value>
 		</property>
@@ -50,20 +52,24 @@
 			<value>
 				INSERT INTO myerp.ecriture_comptable (
 				id,
-				journal_code, reference, date, libelle
+				journal_code,
+				reference, date, libelle
 				) VALUES (
 				nextval('myerp.ecriture_comptable_id_seq'),
-				:journal_code, :reference, :date, :libelle
+				:journal_code,
+				:reference, :date, :libelle
 				)
 			</value>
 		</property>
 		<property name="SQLinsertListLigneEcritureComptable">
 			<value>
 				INSERT INTO myerp.ligne_ecriture_comptable (
-				ecriture_id, ligne_id, compte_comptable_numero, libelle, debit, <!-- [Correction] Oublie de virgule -->
+				ecriture_id, ligne_id,
+				compte_comptable_numero, libelle, debit, <!-- [Correction] Oublie de virgule -->
 				credit
 				) VALUES (
-				:ecriture_id, :ligne_id, :compte_comptable_numero, :libelle, :debit,
+				:ecriture_id, :ligne_id, :compte_comptable_numero,
+				:libelle, :debit,
 				:credit
 				)
 			</value>
@@ -71,7 +77,8 @@
 		<property name="SQLupdateEcritureComptable">
 			<value>
 				UPDATE myerp.ecriture_comptable SET
-				journal_code = :journal_code,
+				journal_code =
+				:journal_code,
 				reference = :reference,
 				date = :date,
 				libelle = :libelle
@@ -88,17 +95,19 @@
 		<property name="SQLdeleteListLigneEcritureComptable">
 			<value>
 				DELETE FROM myerp.ligne_ecriture_comptable
-				WHERE ecriture_id = :ecriture_id
+				WHERE ecriture_id =
+				:ecriture_id
 			</value>
 		</property>
 		<property name="SQLgetSequenceEcritureComptable">
 			<value>
 				SELECT * FROM myerp.sequence_ecriture_comptable
-				WHERE journal_code = :journal_code
+				WHERE
+				journal_code = :journal_code
 				AND annee = :annee
 			</value>
 		</property>
-		
+
 		<property name="SQLgetListSequenceEcritureComptable">
 			<value>
 				SELECT * FROM myerp.sequence_ecriture_comptable
@@ -108,7 +117,8 @@
 		<property name="SQLupdateSequenceEcritureComptable">
 			<value>
 				UPDATE myerp.sequence_ecriture_comptable
-				SET derniere_valeur = :new_value
+				SET derniere_valeur =
+				:new_value
 				WHERE journal_code = :journal_code
 				AND annee = :annee
 			</value>
@@ -117,22 +127,174 @@
 		<property name="SQLinsertSequenceEcritureComptable">
 			<value>
 				INSERT INTO myerp.sequence_ecriture_comptable(
-					journal_code, annee, derniere_valeur
+				journal_code, annee, derniere_valeur
 				)VALUES(
-					:journal_code, :annee, :derniere_valeur
+				:journal_code, :annee, :derniere_valeur
 				)
-				
+
 			</value>
 		</property>
-		
+
 		<property name="SQLdeleteSequenceEcritureComptable">
 			<value>
 				DELETE FROM MYERP.sequence_ecriture_comptable
-				WHERE annee = :annee
+				WHERE annee =
+				:annee
 				AND journal_code = :journal_code
-				
+
 			</value>
 		</property>
 	</bean>
+	<!-- ========== CompteComptableDaoImpl ======= -->
+	<bean id="CompteComptableDaoImpl"
+		class="com.dummy.myerp.consumer.dao.impl.db.dao.CompteComptableDaoImpl"
+		factory-method="getInstance">
+		<property name="SQLgetListCompteComptable">
+			<value>
+				SELECT * FROM myerp.compte_comptable
+			</value>
+		</property>
+	</bean>
+	<!-- ========== JournalComptableDaoImpl ======= -->
+	<bean id="JournalComptableDaoImpl"
+		class="com.dummy.myerp.consumer.dao.impl.db.dao.JournalComptableDaoImpl"
+		factory-method="getInstance">
+		<property name="SQLgetListJournalComptable">
+			<value>
+				SELECT * FROM myerp.journal_comptable
+			</value>
+		</property>
+	</bean>
+	
+	<bean id="EcritureComptableDaoImpl"
+		class="com.dummy.myerp.consumer.dao.impl.db.dao.EcritureComptableDaoImpl"
+		factory-method="getInstance">
+		<property name="SQLgetListEcritureComptable">
+			<value>
+				SELECT * FROM myerp.ecriture_comptable
+			</value>
+		</property>
+		<property name="SQLgetEcritureComptable">
+			<value>
+				SELECT * FROM myerp.ecriture_comptable
+				WHERE id = :id
+			</value>
+		</property>
+		<property name="SQLgetEcritureComptableByRef">
+			<value>
+				SELECT * FROM myerp.ecriture_comptable
+				WHERE reference =
+				:reference
+			</value>
+		</property>
+		<property name="SQLloadListLigneEcriture">
+			<value>
+				SELECT * FROM myerp.ligne_ecriture_comptable
+				WHERE ecriture_id
+				= :ecriture_id
+				ORDER BY ligne_id
+			</value>
+		</property>
+		<property name="SQLinsertEcritureComptable">
+			<value>
+				INSERT INTO myerp.ecriture_comptable (
+				id,
+				journal_code,
+				reference, date, libelle
+				) VALUES (
+				nextval('myerp.ecriture_comptable_id_seq'),
+				:journal_code,
+				:reference, :date, :libelle
+				)
+			</value>
+		</property>
+		<property name="SQLinsertListLigneEcritureComptable">
+			<value>
+				INSERT INTO myerp.ligne_ecriture_comptable (
+				ecriture_id, ligne_id,
+				compte_comptable_numero, libelle, debit, <!-- [Correction] Oublie de virgule -->
+				credit
+				) VALUES (
+				:ecriture_id, :ligne_id, :compte_comptable_numero,
+				:libelle, :debit,
+				:credit
+				)
+			</value>
+		</property>
+		<property name="SQLupdateEcritureComptable">
+			<value>
+				UPDATE myerp.ecriture_comptable SET
+				journal_code =
+				:journal_code,
+				reference = :reference,
+				date = :date,
+				libelle = :libelle
+				WHERE
+				id = :id
+			</value>
+		</property>
+		<property name="SQLdeleteEcritureComptable">
+			<value>
+				DELETE FROM myerp.ecriture_comptable
+				WHERE id = :id
+			</value>
+		</property>
+		<property name="SQLdeleteListLigneEcritureComptable">
+			<value>
+				DELETE FROM myerp.ligne_ecriture_comptable
+				WHERE ecriture_id =
+				:ecriture_id
+			</value>
+		</property>
+	</bean>
+	
+	<bean id="SequenceEcritureComptableDaoImpl" class="com.dummy.myerp.consumer.dao.impl.db.dao.SequenceEcritureComptableDaoImpl">
+		<property name="SQLgetSequenceEcritureComptable">
+			<value>
+				SELECT * FROM myerp.sequence_ecriture_comptable
+				WHERE
+				journal_code = :journal_code
+				AND annee = :annee
+			</value>
+		</property>
+
+		<property name="SQLgetListSequenceEcritureComptable">
+			<value>
+				SELECT * FROM myerp.sequence_ecriture_comptable
+			</value>
+		</property>
+
+		<property name="SQLupdateSequenceEcritureComptable">
+			<value>
+				UPDATE myerp.sequence_ecriture_comptable
+				SET derniere_valeur =
+				:new_value
+				WHERE journal_code = :journal_code
+				AND annee = :annee
+			</value>
+		</property>
+
+		<property name="SQLinsertSequenceEcritureComptable">
+			<value>
+				INSERT INTO myerp.sequence_ecriture_comptable(
+				journal_code, annee, derniere_valeur
+				)VALUES(
+				:journal_code, :annee, :derniere_valeur
+				)
+
+			</value>
+		</property>
+
+		<property name="SQLdeleteSequenceEcritureComptable">
+			<value>
+				DELETE FROM MYERP.sequence_ecriture_comptable
+				WHERE annee =
+				:annee
+				AND journal_code = :journal_code
+
+			</value>
+		</property>
+	</bean>
+		
 
 </beans>

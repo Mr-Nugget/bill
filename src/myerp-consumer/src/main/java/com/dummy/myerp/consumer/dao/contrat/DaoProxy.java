@@ -12,5 +12,13 @@ public interface DaoProxy {
      * @return {@link ComptabiliteDao}
      */
     ComptabiliteDao getComptabiliteDao();
+    
+    ICompteComptableDao getCompteDao();
+    
+    IJournalComptableDao getJournalDao();
+    
+    ISequenceEcritureComptableDao getSequenceDao();
+    
+    IEcritureComptableDao getEcritureDao();
 
 }

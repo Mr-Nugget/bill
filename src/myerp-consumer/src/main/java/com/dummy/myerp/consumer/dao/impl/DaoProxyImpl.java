@@ -34,7 +34,7 @@ public final class DaoProxyImpl implements DaoProxy {
      *
      * @return {@link DaoProxyImpl}
      */
-    protected static DaoProxyImpl getInstance() {
+    public static DaoProxyImpl getInstance() {
         return DaoProxyImpl.INSTANCE;
     }
 
@@ -53,7 +53,8 @@ public final class DaoProxyImpl implements DaoProxy {
     public void setComptabiliteDao(ComptabiliteDao pComptabiliteDao) {
         this.comptabiliteDao = pComptabiliteDao;
     }
-
+    
+    @Override
 	public IJournalComptableDao getJournalDao() {
 		return journalDao;
 	}
@@ -61,7 +62,7 @@ public final class DaoProxyImpl implements DaoProxy {
 	public void setJournalDao(IJournalComptableDao journalDao) {
 		this.journalDao = journalDao;
 	}
-
+	@Override
 	public ICompteComptableDao getCompteDao() {
 		return compteDao;
 	}
@@ -69,7 +70,7 @@ public final class DaoProxyImpl implements DaoProxy {
 	public void setCompteDao(ICompteComptableDao compteDao) {
 		this.compteDao = compteDao;
 	}
-
+	@Override
 	public IEcritureComptableDao getEcritureDao() {
 		return ecritureDao;
 	}
@@ -77,7 +78,7 @@ public final class DaoProxyImpl implements DaoProxy {
 	public void setEcritureDao(IEcritureComptableDao ecritureDao) {
 		this.ecritureDao = ecritureDao;
 	}
-
+	@Override
 	public ISequenceEcritureComptableDao getSequenceDao() {
 		return sequenceDao;
 	}

@@ -12,26 +12,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 import com.dummy.myerp.consumer.dao.contrat.ComptabiliteDao;
+import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
+import com.dummy.myerp.consumer.dao.impl.DaoProxyImpl;
 import com.dummy.myerp.consumer.dao.impl.db.dao.ComptabiliteDaoImpl;
 import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 
 public class TestDataSource {
 
-	@Inject
-	@Named("dataSourceMYERP")
-	public static DataSource ds;
-	
-	
 	public static void main(String[] args) {
 		
 		
 		ApplicationContext context = 
-	    		new ClassPathXmlApplicationContext("applicationContext.xml");
+	    		new ClassPathXmlApplicationContext("classpath:/com/dummy/myerp/consumer/applicationContext.xml");
 		
-		ComptabiliteDao cdao  = ComptabiliteDaoImpl.getInstance();
+		DaoProxy proxy = DaoProxyImpl.getInstance();
 		
-		List<CompteComptable> lcc = cdao.getListCompteComptable();
+		List<CompteComptable> lcc = proxy.getCompteDao().getListCompteComptable();
 
+		for(CompteComptable cc : lcc) {
+			System.out.println(cc.toString());
+		}
 	}
 	
 
