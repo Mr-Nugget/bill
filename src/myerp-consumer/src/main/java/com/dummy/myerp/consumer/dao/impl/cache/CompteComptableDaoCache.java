@@ -33,7 +33,7 @@ public class CompteComptableDaoCache {
      */
     public CompteComptable getByNumero(Integer pNumero) {
         if (listCompteComptable == null) {
-            listCompteComptable = ConsumerHelper.getDaoProxy().getComptabiliteDao().getListCompteComptable();
+            listCompteComptable = ConsumerHelper.getDaoProxy().getCompteDao().getListCompteComptable();
         }
 
         CompteComptable vRetour = CompteComptable.getByNumero(listCompteComptable, pNumero);

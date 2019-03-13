@@ -6,13 +6,6 @@ package com.dummy.myerp.consumer.dao.contrat;
  */
 public interface DaoProxy {
 
-    /**
-     * Renvoie un {@link ComptabiliteDao}
-     *
-     * @return {@link ComptabiliteDao}
-     */
-    ComptabiliteDao getComptabiliteDao();
-    
     ICompteComptableDao getCompteDao();
     
     IJournalComptableDao getJournalDao();

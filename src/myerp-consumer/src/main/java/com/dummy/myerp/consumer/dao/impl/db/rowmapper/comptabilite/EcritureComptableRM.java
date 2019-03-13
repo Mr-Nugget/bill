@@ -28,7 +28,7 @@ public class EcritureComptableRM implements RowMapper<EcritureComptable> {
         vBean.setLibelle(pRS.getString("libelle"));
 
         // Chargement des lignes d'écriture
-        ConsumerHelper.getDaoProxy().getComptabiliteDao().loadListLigneEcriture(vBean);
+        ConsumerHelper.getDaoProxy().getEcritureDao().loadListLigneEcriture(vBean);
 
         return vBean;
     }

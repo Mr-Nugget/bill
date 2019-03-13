@@ -17,7 +17,12 @@ import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
 import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
 
-
+/** Les tests sont lancés dans un ordre précis, permettant de tester les methodes logiquement
+ Un ajout en base, une mise a jour et en dernier lieux une suppression plus d'éventuelles méthode
+ de "check" en fonction de la persistance
+ 
+ @author Titouan
+ **/
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ComptabiliteManagerImplTestIT {
 	
@@ -68,6 +73,7 @@ public class ComptabiliteManagerImplTestIT {
 	
 	@Test
 	public void test999deleteEcritureComptable() {
+		// Delete the ecriture test
 		manager.deleteEcritureComptable(idTest);
 	}
 	

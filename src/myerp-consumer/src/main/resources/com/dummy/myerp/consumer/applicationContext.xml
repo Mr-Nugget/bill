@@ -38,7 +38,6 @@
 
     <!-- DaoProxy -->
     <bean id="DaoProxy" class="com.dummy.myerp.consumer.dao.impl.DaoProxyImpl" factory-method="getInstance">
-        <property name="comptabiliteDao" ref="ComptabiliteDaoImpl"/>
         <property name="journalDao" ref="JournalComptableDaoImpl"/>
         <property name="compteDao" ref="CompteComptableDaoImpl"/>
         <property name="ecritureDao" ref="EcritureComptableDaoImpl"/>

@@ -44,13 +44,13 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	// ==================== Getters/Setters ====================
 	@Override
 	public List<CompteComptable> getListCompteComptable() {
-		return getDaoProxy().getComptabiliteDao().getListCompteComptable();
+		return getDaoProxy().getCompteDao().getListCompteComptable();
 	}
 
 
 	@Override
 	public List<JournalComptable> getListJournalComptable() {
-		return getDaoProxy().getComptabiliteDao().getListJournalComptable();
+		return getDaoProxy().getJournalDao().getListJournalComptable();
 	}
 
 	/**
@@ -58,12 +58,12 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	 */
 	@Override
 	public List<EcritureComptable> getListEcritureComptable() {
-		return getDaoProxy().getComptabiliteDao().getListEcritureComptable();
+		return getDaoProxy().getEcritureDao().getListEcritureComptable();
 	}
 	
 	@Override
 	public List<SequenceEcritureComptable> getListSequenceEcritureComptable() {
-		return getDaoProxy().getComptabiliteDao().getListSequenceEcritureComptable();
+		return getDaoProxy().getSequenceDao().getListSequenceEcritureComptable();
 	}
 
 	/**
@@ -92,7 +92,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		LocalDate localDate = dateEcriture.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 		
 		// Get the sequence with the year and the journal code
-		SequenceEcritureComptable sequence = getDaoProxy().getComptabiliteDao().getSequenceEcritureComptable(codeJournal, localDate.getYear());
+		SequenceEcritureComptable sequence = getDaoProxy().getSequenceDao().getSequenceEcritureComptable(codeJournal, localDate.getYear());
 		
 		String[] decomposeRef = pEcritureComptable.getReference().trim().split("/");
 		
@@ -100,13 +100,13 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		
 		if(sequence == null) {
 			// Insert a new sequence
-			getDaoProxy().getComptabiliteDao().insertSequenceEcritureComptable(codeJournal, localDate.getYear(), 1);
+			getDaoProxy().getSequenceDao().insertSequenceEcritureComptable(codeJournal, localDate.getYear(), 1);
 			
 			pEcritureComptable.setReference(decomposeRef[0]+"00001");
 			
 		}else {
 			// Update the sequence : derniere_valeur + 1
-			getDaoProxy().getComptabiliteDao().updateSequenceEcritureComptable(codeJournal, localDate.getYear(), sequence.getDerniereValeur()+1);
+			getDaoProxy().getSequenceDao().updateSequenceEcritureComptable(codeJournal, localDate.getYear(), sequence.getDerniereValeur()+1);
 			lastValue++;
 			
 			String newReference = "";
@@ -225,7 +225,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		if (StringUtils.isNoneEmpty(pEcritureComptable.getReference())) {
 			try {
 				// Recherche d'une écriture ayant la même référence
-				EcritureComptable vECRef = getDaoProxy().getComptabiliteDao().getEcritureComptableByRef(
+				EcritureComptable vECRef = getDaoProxy().getEcritureDao().getEcritureComptableByRef(
 						pEcritureComptable.getReference());
 
 				// Si l'écriture à vérifier est une nouvelle écriture (id == null),
@@ -249,7 +249,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 		//this.checkEcritureComptable(pEcritureComptable);
 		TransactionStatus vTS = getTransactionManager().beginTransactionMyERP();
 		try {
-			getDaoProxy().getComptabiliteDao().insertEcritureComptable(pEcritureComptable);
+			getDaoProxy().getEcritureDao().insertEcritureComptable(pEcritureComptable);
 			getTransactionManager().commitMyERP(vTS);
 			vTS = null;
 		} finally {
@@ -264,7 +264,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	public void updateEcritureComptable(EcritureComptable pEcritureComptable) throws FunctionalException {
 		TransactionStatus vTS = getTransactionManager().beginTransactionMyERP();
 		try {
-			getDaoProxy().getComptabiliteDao().updateEcritureComptable(pEcritureComptable);
+			getDaoProxy().getEcritureDao().updateEcritureComptable(pEcritureComptable);
 			getTransactionManager().commitMyERP(vTS);
 			vTS = null;
 		} finally {
@@ -279,7 +279,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	public void deleteEcritureComptable(Integer pId) {
 		TransactionStatus vTS = getTransactionManager().beginTransactionMyERP();
 		try {
-			getDaoProxy().getComptabiliteDao().deleteEcritureComptable(pId);
+			getDaoProxy().getEcritureDao().deleteEcritureComptable(pId);
 			getTransactionManager().commitMyERP(vTS);
 			vTS = null;
 		} finally {
@@ -289,6 +289,6 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	
 	@Override
 	public void deleteSequenceEcritureComptable(String code, Integer year) {
-		getDaoProxy().getComptabiliteDao().deleteSequenceEcritureComptable(code, year);
+		getDaoProxy().getSequenceDao().deleteSequenceEcritureComptable(code, year);
 	}
 }
