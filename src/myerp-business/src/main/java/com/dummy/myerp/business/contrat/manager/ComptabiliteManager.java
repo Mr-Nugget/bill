@@ -42,6 +42,14 @@ public interface ComptabiliteManager {
      * @return {@link List}
      */
     List<SequenceEcritureComptable> getListSequenceEcritureComptable();
+    
+    /**
+     * Renvoie la sequence associé à l'année et au code journal associé
+     * @param annee
+     * @param year
+     * @return
+     */
+    SequenceEcritureComptable getSequenceEcritureComptable(String code, Integer year);
 
     /**
      * Ajoute une référence à l'écriture comptable.

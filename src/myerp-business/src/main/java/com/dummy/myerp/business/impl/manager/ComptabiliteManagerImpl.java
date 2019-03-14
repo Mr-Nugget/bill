@@ -65,6 +65,11 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	public List<SequenceEcritureComptable> getListSequenceEcritureComptable() {
 		return getDaoProxy().getSequenceDao().getListSequenceEcritureComptable();
 	}
+	
+	@Override
+	public SequenceEcritureComptable getSequenceEcritureComptable(String code, Integer year) {
+		return getDaoProxy().getSequenceDao().getSequenceEcritureComptable(code, year);
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -102,7 +107,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 			// Insert a new sequence
 			getDaoProxy().getSequenceDao().insertSequenceEcritureComptable(codeJournal, localDate.getYear(), 1);
 			
-			pEcritureComptable.setReference(decomposeRef[0]+"00001");
+			pEcritureComptable.setReference(decomposeRef[0]+"/00001");
 			
 		}else {
 			// Update the sequence : derniere_valeur + 1
@@ -112,18 +117,18 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 			String newReference = "";
 			
 			if(lastValue < 10) {
-				newReference = "0000"+lastValue;
+				newReference = "/0000"+lastValue;
 			}else if(lastValue < 100) {
-				newReference = "000"+lastValue;
+				newReference = "/000"+lastValue;
 			}else if(lastValue < 1000) {
-				newReference = "00"+lastValue;
+				newReference = "/00"+lastValue;
 			}else if(lastValue < 10000) {
-				newReference = "0"+lastValue;
+				newReference = "/0"+lastValue;
 			}else {
-				newReference ="" + lastValue;
+				newReference = "/" + lastValue;
 			}
 			
-			pEcritureComptable.setReference(newReference);
+			pEcritureComptable.setReference(decomposeRef[0]+ newReference);
 			
 		}
 	}
