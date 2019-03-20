@@ -31,10 +31,32 @@ Il comporte :
     cd docker/dev
     docker-compose stop
 
-
-### Remise à zero
+### Remise à zéro
 
     cd docker/dev
     docker-compose stop
     docker-compose rm -v
     docker-compose up
+
+### Jenkins Configuration
+
+Configuration général du projet, description et lien vers le repository gitHub.
+
+![](C:\dev\openclassrooms\p4Compta\doc\res\jenkins_general.JPG)
+
+Lien vers le gestionnaire de code source, récupération du code à cette adresse pour le build.
+Branche spécifiée : master
+
+![](C:\dev\openclassrooms\p4Compta\doc\res\jenkins_git.JPG)
+
+"GitHub hook trigger for GITScm polling" permet de lance un build automatique à chaque push.
+
+![](C:\dev\openclassrooms\p4Compta\doc\res\jenkins build.JPG)
+
+Configuration du handler directement dans git dans la partie webhook de la configuration du repository.
+
+![](C:\dev\openclassrooms\p4Compta\doc\res\git_webhook.JPG)
+
+Commande de build maven. Lancement du profil "it" pour les tests d'intégration.
+
+![](C:\dev\openclassrooms\p4Compta\doc\res\jenkins_mvn.JPG)

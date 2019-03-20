@@ -23,27 +23,28 @@ import com.dummy.myerp.technical.exception.FunctionalException;
 /** Les tests sont lancés dans un ordre précis, permettant de tester les methodes logiquement
  Un ajout en base, une mise a jour et en dernier lieux une suppression plus d'éventuelles méthode
  de "check" en fonction de la persistance
- 
+
  @author Titouan
  **/
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ComptabiliteManagerImplTestIT {
-	
-	
+
+
 	private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
-	
+
 	// Load XML spring Bean configuration contexts
 	private String[] contextArray = new String[] {"classpath:/com/dummy/myerp/consumer/applicationContext.xml", "classpath:/com/dummy/myerp/business/applicationContext.xml"};
 	@SuppressWarnings("unused")
 	private ApplicationContext context = new ClassPathXmlApplicationContext(contextArray);
-	
+
 	private static Integer idTest;
+	private static int numberEcriture;
 
-
-	
 	@Test
 	public void test1InsertEcritureComptable() throws Exception{
-		
+
+		numberEcriture = manager.getListEcritureComptable().size();
+
 		EcritureComptable ecritureTest = new EcritureComptable();
 		ecritureTest.setJournal(new JournalComptable("AC", "Test"));
 		ecritureTest.setDate(new GregorianCalendar(2045, Calendar.MARCH, 12).getTime());
@@ -55,27 +56,39 @@ public class ComptabiliteManagerImplTestIT {
 		ecritureTest.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
 				null, null,
 				new BigDecimal(123)));
-		
-		
+
+
 		// Call checkEcritureComptable
 		manager.insertEcritureComptable(ecritureTest);
-		
+
+		assertEquals(numberEcriture + 1, manager.getListEcritureComptable().size());
+
 		idTest = ecritureTest.getId();
 	}
-	
+
 	@Test(expected=FunctionalException.class)
 	public void test2CheckEcritureComptableRG6() throws Exception{
-		
+
 		EcritureComptable ecritureTest = new EcritureComptable();
 		// Same reference
 		ecritureTest.setReference("AC-2045/00007");
-		
+
 		manager.checkEcritureComptableContext(ecritureTest);
-		
+
 	}
 	
 	@Test
-	public void test3addReference() {
+	public void test3CheckEcritureComptableRG6() throws Exception{
+
+		EcritureComptable ecritureTest = new EcritureComptable();
+		// Unknown reference
+		ecritureTest.setReference("");
+		// Should not throw a functional exception
+		manager.checkEcritureComptableContext(ecritureTest);
+	}
+
+	@Test
+	public void test4addReference() {
 		// Same ecriture 
 		EcritureComptable ecritureTest = new EcritureComptable();
 		ecritureTest.setJournal(new JournalComptable("AC", "Test"));
@@ -88,22 +101,22 @@ public class ComptabiliteManagerImplTestIT {
 		ecritureTest.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
 				null, null,
 				new BigDecimal(123)));
-		
+
 		manager.addReference(ecritureTest);
-		
+
 		// Get the new sequence associated to the ecritureTest saved into the DB
 		SequenceEcritureComptable sequenceTest = 
-					manager.getSequenceEcritureComptable(ecritureTest.getJournal().getCode(), 2045);
-		
+				manager.getSequenceEcritureComptable(ecritureTest.getJournal().getCode(), 2045);
+
 		// Insert the new sequence, there is no lastValue so it should be 1
 		assertEquals(new Integer(1), sequenceTest.getDerniereValeur());
 		// Same for the reference
 		assertEquals("AC-2045/00001", ecritureTest.getReference());
-		
+
 		for(int i = 2; i < 11; i++) {
 			manager.addReference(ecritureTest);
 			sequenceTest = manager.getSequenceEcritureComptable(ecritureTest.getJournal().getCode(), 2045);
-			
+
 			assertEquals(new Integer(i), sequenceTest.getDerniereValeur());
 			if(i >= 10) {
 				assertEquals("AC-2045/000"+i, ecritureTest.getReference());
@@ -111,15 +124,19 @@ public class ComptabiliteManagerImplTestIT {
 				assertEquals("AC-2045/0000"+i, ecritureTest.getReference());
 			}
 		}
-		
+
 		manager.deleteSequenceEcritureComptable(ecritureTest.getJournal().getCode(), 2045);
-		
+
 	}
-	
+
+
 	@Test
 	public void test999deleteEcritureComptable() {
 		// Delete the ecriture test
 		manager.deleteEcritureComptable(idTest);
+
+		assertEquals(numberEcriture, manager.getListEcritureComptable().size());
+
 	}
-	
+
 }

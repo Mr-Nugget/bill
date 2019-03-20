@@ -74,7 +74,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	/**
 	 * {@inheritDoc}
 	 */
-	// TODO à tester
+	// TODO Fait
 	@Override
 	public synchronized void addReference(EcritureComptable pEcritureComptable) {
 		// TODO FAIT à implémenter
@@ -136,7 +136,7 @@ public class ComptabiliteManagerImpl extends AbstractBusinessManager implements 
 	/**
 	 * {@inheritDoc}
 	 */
-	// TODO à tester
+	// TODO FAIT à tester
 	@Override
 	public void checkEcritureComptable(EcritureComptable pEcritureComptable) throws FunctionalException {
 		this.checkEcritureComptableUnit(pEcritureComptable);
