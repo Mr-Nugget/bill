@@ -13,8 +13,12 @@
           factory-method="getInstance">
         <constructor-arg ref="DaoProxy"/>
         <constructor-arg ref="TransactionManager"/>
+        <!-- Inject managers -->
+        <property name="ecritureComptableManager" ref="EcritureComptableManagerImpl"></property>
+        <property name="journalComptableManager" ref="JournalComptableManagerImpl"></property>
+        <property name="compteComptableManager" ref="CompteComptableManagerImpl"></property>
+        <property name="sequenceEcritureManager" ref="SequenceEcritureManagerImpl"></property>
     </bean>
-
 
     <!-- ========== Transaction Managers ========== -->
     <import resource="transactionContext.xml"/>

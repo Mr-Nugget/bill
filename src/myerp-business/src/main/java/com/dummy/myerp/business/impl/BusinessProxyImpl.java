@@ -1,8 +1,10 @@
 package com.dummy.myerp.business.impl;
 
 import com.dummy.myerp.business.contrat.BusinessProxy;
-import com.dummy.myerp.business.contrat.manager.ComptabiliteManager;
-import com.dummy.myerp.business.impl.manager.ComptabiliteManagerImpl;
+import com.dummy.myerp.business.contrat.manager.ICompteComptableManager;
+import com.dummy.myerp.business.contrat.manager.IEcritureComptableManager;
+import com.dummy.myerp.business.contrat.manager.IJournalComptableManager;
+import com.dummy.myerp.business.contrat.manager.ISequenceEcritureManager;
 import com.dummy.myerp.consumer.dao.contrat.DaoProxy;
 
 
@@ -17,8 +19,11 @@ public class BusinessProxyImpl implements BusinessProxy {
 
 
     // ==================== Attributs ====================
-    /** The Comptabilite manager. */
-    private ComptabiliteManager comptabiliteManager = new ComptabiliteManagerImpl();
+    /** The Comptabilite managers. */
+    private ICompteComptableManager compteComptableManager;
+    private IJournalComptableManager journalComptableManager;
+    private IEcritureComptableManager ecritureComptableManager;
+    private ISequenceEcritureManager sequenceEcritureManager;
 
 
     // ==================== Constructeurs ====================
@@ -60,8 +65,39 @@ public class BusinessProxyImpl implements BusinessProxy {
 
 
     // ==================== Getters/Setters ====================
-    @Override
-    public ComptabiliteManager getComptabiliteManager() {
-        return comptabiliteManager;
-    }
+	@Override
+	public IEcritureComptableManager getEcritureComptableManager() {
+		return ecritureComptableManager;
+	}
+
+	public void setEcritureComptableManager(IEcritureComptableManager ecritureComptableManager) {
+		this.ecritureComptableManager = ecritureComptableManager;
+	}
+
+	@Override
+	public IJournalComptableManager getJournalComptableManager() {
+		return journalComptableManager;
+	}
+
+	public void setJournalComptableManager(IJournalComptableManager journalComptableManager) {
+		this.journalComptableManager = journalComptableManager;
+	}
+
+	@Override
+	public ICompteComptableManager getCompteComptableManager() {
+		return compteComptableManager;
+	}
+
+	public void setCompteComptableManager(ICompteComptableManager compteComptableManager) {
+		this.compteComptableManager = compteComptableManager;
+	}
+
+	@Override
+	public ISequenceEcritureManager getSequenceEcritureManager() {
+		return sequenceEcritureManager;
+	}
+
+	public void setSequenceEcritureManager(ISequenceEcritureManager sequenceEcritureManager) {
+		this.sequenceEcritureManager = sequenceEcritureManager;
+	}
 }

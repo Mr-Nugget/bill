@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import org.junit.Test;
+
 import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
 import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
@@ -11,9 +12,9 @@ import com.dummy.myerp.model.bean.comptabilite.LigneEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
 
 
-public class ComptabiliteManagerImplTest {
+public class EcritureComptableManagerImplTest {
 
-	private ComptabiliteManagerImpl manager = new ComptabiliteManagerImpl();
+	private EcritureComptableManagerImpl manager = new EcritureComptableManagerImpl();
 	
 
 	@Test

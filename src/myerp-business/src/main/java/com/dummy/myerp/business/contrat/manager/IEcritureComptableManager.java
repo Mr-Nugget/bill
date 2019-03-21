@@ -2,55 +2,17 @@ package com.dummy.myerp.business.contrat.manager;
 
 import java.util.List;
 
-import com.dummy.myerp.model.bean.comptabilite.CompteComptable;
 import com.dummy.myerp.model.bean.comptabilite.EcritureComptable;
-import com.dummy.myerp.model.bean.comptabilite.JournalComptable;
-import com.dummy.myerp.model.bean.comptabilite.SequenceEcritureComptable;
 import com.dummy.myerp.technical.exception.FunctionalException;
 
-
-/**
- * Interface du manager du package comptabilite.
- */
-public interface ComptabiliteManager {
-
-    /**
-     * Renvoie la liste des comptes comptables.
-     *
-     * @return {@link List}
-     */
-    List<CompteComptable> getListCompteComptable();
-
-
-    /**
-     * Renvoie la liste des journaux comptables.
-     *
-     * @return {@link List}
-     */
-    List<JournalComptable> getListJournalComptable();
-
-
-    /**
+public interface IEcritureComptableManager {
+	 /**
      * Renvoie la liste des écritures comptables.
      *
      * @return {@link List}
      */
     List<EcritureComptable> getListEcritureComptable();
     
-    /**
-     * Renvoie la liste des séquences écritures comptables
-     * @return {@link List}
-     */
-    List<SequenceEcritureComptable> getListSequenceEcritureComptable();
-    
-    /**
-     * Renvoie la sequence associé à l'année et au code journal associé
-     * @param annee
-     * @param year
-     * @return
-     */
-    SequenceEcritureComptable getSequenceEcritureComptable(String code, Integer year);
-
     /**
      * Ajoute une référence à l'écriture comptable.
      *
@@ -98,10 +60,4 @@ public interface ComptabiliteManager {
      */
     void deleteEcritureComptable(Integer pId);
     
-    /**
-     * Supprime la séquence écriture associé au code journal et à l'année
-     * @param code
-     * @param annee
-     */
-    void deleteSequenceEcritureComptable(String code, Integer annee);
 }
