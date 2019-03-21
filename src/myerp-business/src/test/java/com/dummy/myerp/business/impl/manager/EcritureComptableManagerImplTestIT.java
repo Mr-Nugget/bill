@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-
+import java.util.List;
 
 import org.junit.FixMethodOrder;
 import org.junit.Test;
@@ -27,7 +27,7 @@ import com.dummy.myerp.technical.exception.FunctionalException;
  @author Titouan
  **/
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class ComptabiliteManagerImplTestIT {
+public class EcritureComptableManagerImplTestIT {
 
 
 	private EcritureComptableManagerImpl ecritureManager = new EcritureComptableManagerImpl();
@@ -129,10 +129,38 @@ public class ComptabiliteManagerImplTestIT {
 		sequenceManager.deleteSequenceEcritureComptable(ecritureTest.getJournal().getCode(), 2045);
 
 	}
-
-
+	
 	@Test
-	public void test999deleteEcritureComptable() {
+	public void test5updateEcritureComptable() throws FunctionalException {
+		EcritureComptable ecritureTest = new EcritureComptable();
+		ecritureTest.setJournal(new JournalComptable("AC", "Test"));
+		ecritureTest.setDate(new GregorianCalendar(2022, Calendar.MARCH, 12).getTime());
+		ecritureTest.setLibelle("Nouveau Libelle");
+		ecritureTest.setReference("AC-2022/00007");
+		ecritureTest.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(401),
+				null, new BigDecimal(123),
+				null));
+		ecritureTest.getListLigneEcriture().add(new LigneEcritureComptable(new CompteComptable(411),
+				null, null,
+				new BigDecimal(123)));
+		ecritureTest.setId(idTest);
+		
+		ecritureManager.updateEcritureComptable(ecritureTest);
+		
+		List<EcritureComptable> lec = ecritureManager.getListEcritureComptable();
+		
+		for(EcritureComptable ec : lec) {
+			if(ec.getId().equals(idTest)) {
+				ecritureTest = ec;
+			}
+		}
+		
+		assertEquals("Nouveau Libelle", ecritureTest.getLibelle());
+		assertEquals("AC-2022/00007", ecritureTest.getReference());
+	}
+	
+	@Test
+	public void test6deleteEcritureComptable() {
 		// Delete the ecriture test
 		ecritureManager.deleteEcritureComptable(idTest);
 

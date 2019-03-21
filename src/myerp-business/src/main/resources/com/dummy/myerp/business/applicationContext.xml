@@ -4,10 +4,8 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans-4.3.xsd">
 
-    <!-- ====================   Business-Proxy   ==================== -->
-
-
-	<bean id="EcritureComptableManagerImpl" class="com.dummy.myerp.business.impl.manager.EcritureComptableManagerImpl">
+    <!-- ====================   Manager Beans    ==================== -->
+    <bean id="EcritureComptableManagerImpl" class="com.dummy.myerp.business.impl.manager.EcritureComptableManagerImpl">
 	</bean>
 	
 	<bean id="JournalComptableManagerImpl" class="com.dummy.myerp.business.impl.manager.JournalComptableManagerImpl">
@@ -18,6 +16,7 @@
 	
 	<bean id="SequenceEcritureManagerImpl" class="com.dummy.myerp.business.impl.manager.SequenceEcritureManagerImpl">
 	</bean>
+    <!-- ====================   Business-Proxy   ==================== -->
 
     <!-- BusinessProxy -->
     <bean id="BusinessProxy"
