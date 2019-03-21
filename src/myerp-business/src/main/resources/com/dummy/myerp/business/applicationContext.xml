@@ -6,6 +6,19 @@
 
     <!-- ====================   Business-Proxy   ==================== -->
 
+
+	<bean id="EcritureComptableManagerImpl" class="com.dummy.myerp.business.impl.manager.EcritureComptableManagerImpl">
+	</bean>
+	
+	<bean id="JournalComptableManagerImpl" class="com.dummy.myerp.business.impl.manager.JournalComptableManagerImpl">
+	</bean>
+	
+	<bean id="CompteComptableManagerImpl" class="com.dummy.myerp.business.impl.manager.CompteComptableManagerImpl">
+	</bean>
+	
+	<bean id="SequenceEcritureManagerImpl" class="com.dummy.myerp.business.impl.manager.SequenceEcritureManagerImpl">
+	</bean>
+
     <!-- BusinessProxy -->
     <bean id="BusinessProxy"
           class="com.dummy.myerp.business.impl.BusinessProxyImpl"
