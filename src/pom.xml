@@ -122,15 +122,29 @@
 						<artifactId>jacoco-maven-plugin</artifactId>
 						<executions>
 							<execution>
+								<id>default-prepare-agent</id>
 								<goals>
 									<goal>prepare-agent</goal>
 								</goals>
+								<configuration>
+									<destFile>${project.build.directory}/jacoco.exec</destFile>
+								</configuration>
 							</execution>
 							<execution>
-								<id>report-integration</id>
+								<id>default-prepare-agent-integration</id>
+								<goals>
+									<goal>prepare-agent-integration</goal>
+								</goals>
+								<configuration>
+									<destFile>${project.build.directory}/jacoco-it.exec</destFile>
+								</configuration>
+							</execution>
+							<execution>
+								<id>jacoco-site</id>
 								<phase>integration-test</phase>
 								<goals>
 									<goal>report</goal>
+									<goal>report-integration</goal>
 								</goals>
 							</execution>
 						</executions>
@@ -437,26 +451,6 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<plugins>
-			<plugin>
-				<groupId>org.jacoco</groupId>
-				<artifactId>jacoco-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<goals>
-							<goal>prepare-agent</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>report</id>
-						<phase>prepare-package</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
 
 
